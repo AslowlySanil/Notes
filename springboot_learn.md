@@ -1836,3 +1836,26 @@ server:
 cron:
   job1: '* * * * * ?' # 秒 时 分 天 周 月
 ```
+
+### 22 [response.setHeader()的用法](https://www.cnblogs.com/mingforyou/p/4259113.html)
+
+#### 22.1 （1）Content-Type的作用
+
+~~~markdown
+该实体头的作用是让服务器告诉浏览器它发送的数据属于什么文件类型。
+
+例如：当Content-Type 的值设置为text/html和text/plain时,前者会让浏览器把接收到的实体内容以HTML格式解析,后者会让浏览器以普通文本解析.
+~~~
+
+#### 22.2 （2）Content-Disposition 的作用
+
+~~~java
+File file = new File(fileInfo.getPath());
+        HttpHeaders headers = new HttpHeaders();
+        // 通知浏览器以attachment(下载方式)打开图片
+         headers.add("Content-Disposition", "attchement;filename="+formFileName);
+        // application/octet-stream :二进制流数据(最常见的文件下载)
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.OK);
+~~~
+
